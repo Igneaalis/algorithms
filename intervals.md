@@ -6,7 +6,7 @@ https://leetcode.com/problems/non-overlapping-intervals
 
 ```python
 class Solution(object):
-    def eraseOverlapIntervals(intervals):
+    def eraseOverlapIntervals(self, intervals):
         """
         :type intervals: List[List[int]]
         :rtype: int
@@ -32,7 +32,7 @@ https://leetcode.com/problems/merge-intervals/
 
 ```python
 class Solution(object):
-    def merge(intervals):
+    def merge(self, intervals):
         """
         :type intervals: List[List[int]]
         :rtype: List[List[int]]
@@ -55,7 +55,7 @@ https://leetcode.com/problems/insert-interval/
 
 ```python
 class Solution(object):
-    def insert(intervals, newInterval):
+    def insert(self, intervals, newInterval):
         """
         :type intervals: List[List[int]]
         :type newInterval: List[int]
