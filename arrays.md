@@ -27,7 +27,8 @@ https://leetcode.com/problems/3sum/
 
 ```python
 class Solution(object):
-    def twoSum(nums, target, removed):
+
+    def twoSum(self, nums, target, removed):
         """
         :type nums: List[int]
         :type target: int
@@ -35,13 +36,11 @@ class Solution(object):
         :rtype: List[int]
         """
 
-        out = {}
-        for i in range(len(nums)):
+        for i, n in enumerate(nums):
             if i == removed:
                 continue
-            if target - nums[i] in out:
-                return [nums[out[target - nums[i]]], nums[i]]
-            out[nums[i]] = i
+            if target - n in nums and i != nums.index(target - n) and removed != nums.index(target - n):
+                yield sorted([n, target - n])
 
     def threeSum(self, nums):
         """
@@ -50,13 +49,14 @@ class Solution(object):
         """
 
         out = []
-        for i in range(len(nums)):
-            tmp = twoSum(nums, -nums[i], i)
-            if tmp:
-                tmp.append(nums[i])
-                tmp.sort()
-                if tmp not in out:
-                    out.append(tmp)
+        for i, n in enumerate(nums):
+            pairs = []
+            for x in self.twoSum(nums, -n, i):
+                if x not in pairs:
+                    pairs.append(x)
+            for p in pairs:
+                if sorted(p + [n]) not in out:
+                    out += [sorted(p + [n])]
         return out
 
 ```
