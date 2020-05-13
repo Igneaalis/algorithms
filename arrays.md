@@ -21,7 +21,7 @@ class Solution(object):
 
 ```
 
-## Three sum
+## Three sum (Generator version, O(n^3))
 
 https://leetcode.com/problems/3sum/
 
@@ -36,11 +36,11 @@ class Solution(object):
         :rtype: List[int]
         """
 
-        for i, n in enumerate(nums):
+        for i, v in enumerate(nums):
             if i == removed:
                 continue
-            if target - n in nums and i != nums.index(target - n) and removed != nums.index(target - n):
-                yield sorted([n, target - n])
+            if target - v in nums and i != nums.index(target - v) and removed != nums.index(target - v):
+                yield sorted([v, target - v])
 
     def threeSum(self, nums):
         """
@@ -49,15 +49,51 @@ class Solution(object):
         """
 
         out = []
-        for i, n in enumerate(nums):
+        for i, v in enumerate(nums):
             pairs = []
-            for x in self.twoSum(nums, -n, i):
+            for x in self.twoSum(nums, -v, i):
                 if x not in pairs:
                     pairs.append(x)
             for p in pairs:
-                if sorted(p + [n]) not in out:
-                    out += [sorted(p + [n])]
+                if sorted(p + [v]) not in out:
+                    out += [sorted(p + [v])]
         return out
+
+```
+
+## Three sum (Set + hash version O(n^2))
+
+https://leetcode.com/problems/3sum/
+
+```python
+class Solution(object):
+
+    def twoSum(self, nums, target, removed):
+        """
+        :type nums: List[int]
+        :type target: int
+        :type removed: set
+        :rtype: List[int]
+        """
+
+        dict = {}
+        for i, v in enumerate(nums):
+            if target - v in dict:
+                removed.add((v, target - v, -target))
+            dict[v] = i
+        del dict
+
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+
+        nums.sort()
+        out = set()
+        for i, v in enumerate(nums):
+            self.twoSum(nums[i + 1:], -v, out)
+        return list(list(x) for x in out)
 
 ```
 
