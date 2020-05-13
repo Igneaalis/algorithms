@@ -103,7 +103,6 @@ https://leetcode.com/problems/subarray-sum-equals-k/
 
 ```python
 from collections import defaultdict
-from itertools import accumulate
 
 
 class Solution(object):
@@ -114,7 +113,7 @@ class Solution(object):
         :rtype: int
         """
 
-        _list, _dict, out = [0] + list(accumulate(nums)), defaultdict(int), 0
+        _list, _dict, out = [0] + [sum(nums[:i + 1]) for i, v in enumerate(nums)], defaultdict(int), 0
         for i in range(len(nums)):
             _dict[_list[i]] += 1
             out += _dict[_list[i + 1] - k]
