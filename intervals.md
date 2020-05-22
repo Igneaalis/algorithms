@@ -1,5 +1,11 @@
 # Intervals
 
++ [Non-overlapping Intervals](#non-overlapping intervals)
++ [Merge Intervals](#merge-intervals)
++ [Insert Interval](#insert-interval)
+
+
+
 ## Non-overlapping intervals
 
 https://leetcode.com/problems/non-overlapping-intervals
@@ -13,7 +19,7 @@ class Solution(object):
         """
 
         intervals = sorted(intervals, key=lambda x: x[0])
-        out = 0
+        overlapped_intervals = 0
         pstart = pend = float('-inf')
         for start, end in intervals:
             if start >= pend:
@@ -21,8 +27,8 @@ class Solution(object):
             else:
                 if end <= pend:
                     pstart, pend = start, end
-                out += 1
-        return out
+                overlapped_intervals += 1
+        return overlapped_intervals
 
 ```
 
@@ -38,18 +44,17 @@ class Solution(object):
         :rtype: List[List[int]]
         """
 
-        out = []
-        for i in sorted(intervals, key=lambda x: x[0]):
-            # print('out: {}, i[0]: {}'.format(out, i[0]))
-            if out and i[0] <= out[-1][1]:
-                out[-1][1] = max(i[1], out[-1][1])
+        merged_intervals = []
+        for interval in sorted(intervals, key=lambda x: x[0]):
+            if merged_intervals and interval[0] <= merged_intervals[-1][1]:
+                merged_intervals[-1][1] = max(interval[1], merged_intervals[-1][1])
             else:
-                out += [i]
-        return out
+                merged_intervals += [interval]
+        return merged_intervals
 
 ```
 
-## Insert intervals
+## Insert interval
 
 https://leetcode.com/problems/insert-interval/
 
@@ -63,12 +68,12 @@ class Solution(object):
         """
 
         intervals.append(newInterval)
-        out = []
-        for i in sorted(intervals, key=lambda x: x[0]):
-            if out and i[0] <= out[-1][1]:
-                out[-1][1] = max(i[1], out[-1][1])
+        merged_intervals = []
+        for interval in sorted(intervals, key=lambda x: x[0]):
+            if merged_intervals and interval[0] <= merged_intervals[-1][1]:
+                merged_intervals[-1][1] = max(interval[1], merged_intervals[-1][1])
             else:
-                out += [i]
-        return out
+                merged_intervals += [interval]
+        return merged_intervals
 
 ```
