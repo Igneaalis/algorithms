@@ -1,5 +1,7 @@
 # Linked list
 
++ [Reverse linked list](#reverse-linked-list)
+
 ## Reverse linked list
 
 https://leetcode.com/problems/reverse-linked-list/
@@ -16,20 +18,20 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
+        currentNode = head
+        if currentNode and currentNode.next:
+            prevNode = currentNode
+            nextNode = currentNode.next
+            currentNode.next = None
+            currentNode = nextNode
 
-        if head and head.next:
-            prev = head
-            next = head.next
-            head.next = None
-            head = next
+            while currentNode.next:
+                nextNode = nextNode.next
+                currentNode.next = prevNode
+                prevNode = currentNode
+                currentNode = nextNode
 
-            while (head.next):
-                next = next.next
-                head.next = prev
-                prev = head
-                head = next
-
-            head.next = prev
-        return head
+            currentNode.next = prevNode
+        return currentNode
 
 ```
