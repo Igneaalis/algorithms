@@ -18,17 +18,17 @@ class Solution(object):
         :rtype: int
         """
 
-        intervals = sorted(intervals, key=lambda x: x[0])
-        overlapped_intervals = 0
-        pstart = pend = float('-inf')
-        for start, end in intervals:
-            if start >= pend:
-                pstart, pend = start, end
-            else:
-                if end <= pend:
-                    pstart, pend = start, end
-                overlapped_intervals += 1
-        return overlapped_intervals
+        intervals_count = len(intervals)
+        if intervals_count  <= 1:
+            return 0
+        rightsorted_intervals = sorted(intervals, key=lambda x: x[1])
+        counter = 0
+        last_end = float("-inf")
+        for interval in rightsorted_intervals:
+            if interval.start >= last_end:
+                last_end = interval.end
+                counter += 1
+        return intervals_count - counter
 
 ```
 
