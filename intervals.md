@@ -25,8 +25,8 @@ class Solution(object):
         counter = 0
         last_end = float("-inf")
         for interval in rightsorted_intervals:
-            if interval.start >= last_end:
-                last_end = interval.end
+            if interval[0] >= last_end:
+                last_end = interval[1]
                 counter += 1
         return intervals_count - counter
 
