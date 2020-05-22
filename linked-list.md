@@ -19,19 +19,14 @@ class Solution(object):
         :rtype: ListNode
         """
         currentNode = head
-        if currentNode and currentNode.next:
-            prevNode = currentNode
+        prevNode = None
+
+        while currentNode:
             nextNode = currentNode.next
-            currentNode.next = None
+            currentNode.next = prevNode
+            prevNode = currentNode
             currentNode = nextNode
 
-            while currentNode.next:
-                nextNode = nextNode.next
-                currentNode.next = prevNode
-                prevNode = currentNode
-                currentNode = nextNode
-
-            currentNode.next = prevNode
-        return currentNode
+        return prevNode
 
 ```
