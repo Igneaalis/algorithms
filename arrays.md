@@ -1,5 +1,10 @@
 # Arrays
 
++ [Two Sum](#two-sum)
++ [Three sum (Generator version, O(n^3))](#three-sum-generator-version-on3)
++ [Three sum (Set + hash version O(n^2))](#three-sum-set--hash-version-on2)
++ [Subarray Sum Equals K](#subarray-sum-equals-k)
+
 ## Two sum
 
 https://leetcode.com/problems/two-sum/
@@ -13,11 +18,11 @@ class Solution(object):
         :rtype: List[int]
         """
 
-        out = {}
-        for i in range(len(nums)):
-            if target - nums[i] in out:
-                return [out[target - nums[i]], i]
-            out[nums[i]] = i
+        indices = {}
+        for index in range(len(nums)):
+            if target - nums[index] in indices:
+                return [indices[target - nums[index]], index]
+            indices[nums[index]] = index
 
 ```
 
@@ -36,11 +41,11 @@ class Solution(object):
         :rtype: List[int]
         """
 
-        for i, v in enumerate(nums):
-            if i == removed:
+        for index, value in enumerate(nums):
+            if index == removed:
                 continue
-            if target - v in nums and i != nums.index(target - v) and removed != nums.index(target - v):
-                yield sorted([v, target - v])
+            if target - value in nums and index != nums.index(target - value) and removed != nums.index(target - value):
+                yield sorted([value, target - value])
 
     def threeSum(self, nums):
         """
@@ -48,16 +53,16 @@ class Solution(object):
         :rtype: List[List[int]]
         """
 
-        out = []
-        for i, v in enumerate(nums):
+        triplets = []
+        for index, value in enumerate(nums):
             pairs = []
-            for x in self.twoSum(nums, -v, i):
+            for x in self.twoSum(nums, -value, index):
                 if x not in pairs:
                     pairs.append(x)
             for p in pairs:
-                if sorted(p + [v]) not in out:
-                    out += [sorted(p + [v])]
-        return out
+                if sorted(p + [value]) not in triplets:
+                    triplets += [sorted(p + [value])]
+        return triplets
 
 ```
 
@@ -77,10 +82,10 @@ class Solution(object):
         """
 
         dict = {}
-        for i, v in enumerate(nums):
-            if target - v in dict:
-                removed.add((v, target - v, -target))
-            dict[v] = i
+        for index, value in enumerate(nums):
+            if target - value in dict:
+                removed.add((value, target - value, -target))
+            dict[value] = index
         del dict
 
     def threeSum(self, nums):
@@ -91,8 +96,8 @@ class Solution(object):
 
         nums.sort()
         out = set()
-        for i, v in enumerate(nums):
-            self.twoSum(nums[i + 1:], -v, out)
+        for index, value in enumerate(nums):
+            self.twoSum(nums[index + 1:], -value, out)
         return list(list(x) for x in out)
 
 ```
@@ -113,10 +118,10 @@ class Solution(object):
         :rtype: int
         """
 
-        _list, _dict, out = [0] + [sum(nums[:i + 1]) for i, v in enumerate(nums)], defaultdict(int), 0
+        _list, _dict, sums_count = [0] + [sum(nums[:index + 1]) for index in range(len(nums))], defaultdict(int), 0
         for i in range(len(nums)):
             _dict[_list[i]] += 1
-            out += _dict[_list[i + 1] - k]
-        return out
+            sums_count += _dict[_list[i + 1] - k]
+        return sums_count
 
 ```
