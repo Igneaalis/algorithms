@@ -1,10 +1,10 @@
 # Linked list
 
-+ [Palindrome Linked List](#palindrome-linked-list)
++ [Merge Two Sorted Lists](#merge-two-sorted-lists)
 
-## Palindrome Linked List
+## Merge Two Sorted Lists
 
-https://leetcode.com/problems/palindrome-linked-list/
+https://leetcode.com/problems/merge-two-sorted-lists/
 
 ```python
 # Definition for singly-linked list.
@@ -13,27 +13,11 @@ https://leetcode.com/problems/palindrome-linked-list/
 #         self.val = val
 #         self.next = next
 class Solution(object):
-    def isPalindrome(self, head):
-        """
-        :type head: ListNode
-        :rtype: bool
-        """
-        mid = tail = head
-        while tail and tail.next:
-            mid = mid.next
-            tail = tail.next.next
-
-        if mid is None:
-            return True
-        if mid.next is None:
-            return head.val == mid.val
-
-        mid.next.next, mid.next, tail, mid = mid, None, mid.next.next, mid.next
-        while tail:
-            tail.next, mid, tail = mid, tail, tail.next
-
-        while mid and head.val == mid.val:
-            head, mid = head.next, mid.next
-        return not mid
+    def mergeTwoLists(self, a, b):
+        if not a or b and a.val > b.val:
+            a, b = b, a
+        if a:
+            a.next = self.mergeTwoLists(a.next, b)
+        return a
 
 ```
