@@ -1,10 +1,10 @@
 # Linked list
 
-+ [Middle of the Linked List](#middle-of-the-linked-list)
++ [Palindrome Linked List](#palindrome-linked-list)
 
-## Middle of the Linked List
+## Palindrome Linked List
 
-https://leetcode.com/problems/middle-of-the-linked-list/
+https://leetcode.com/problems/palindrome-linked-list/
 
 ```python
 # Definition for singly-linked list.
@@ -13,15 +13,27 @@ https://leetcode.com/problems/middle-of-the-linked-list/
 #         self.val = val
 #         self.next = next
 class Solution(object):
-    def middleNode(self, head):
+    def isPalindrome(self, head):
         """
         :type head: ListNode
-        :rtype: ListNode
+        :rtype: bool
         """
-        pastNode = nextNode = head
-        while nextNode and nextNode.next:
-            pastNode = pastNode.next
-            nextNode = nextNode.next.next
-        return pastNode
+        mid = tail = head
+        while tail and tail.next:
+            mid = mid.next
+            tail = tail.next.next
+
+        if mid is None:
+            return True
+        if mid.next is None:
+            return head.val == mid.val
+
+        mid.next.next, mid.next, tail, mid = mid, None, mid.next.next, mid.next
+        while tail:
+            tail.next, mid, tail = mid, tail, tail.next
+
+        while mid and head.val == mid.val:
+            head, mid = head.next, mid.next
+        return not mid
 
 ```
