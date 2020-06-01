@@ -1,10 +1,10 @@
 # Linked list
 
-+ [Merge Two Sorted Lists](#merge-two-sorted-lists)
++ [Remove Nth Node From End of List](#remove-nth-node-from-end-of-list)
 
-## Merge Two Sorted Lists
+## Remove Nth Node From End of List
 
-https://leetcode.com/problems/merge-two-sorted-lists/
+https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 
 ```python
 # Definition for singly-linked list.
@@ -12,12 +12,17 @@ https://leetcode.com/problems/merge-two-sorted-lists/
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-class Solution(object):
-    def mergeTwoLists(self, a, b):
-        if not a or b and a.val > b.val:
-            a, b = b, a
-        if a:
-            a.next = self.mergeTwoLists(a.next, b)
-        return a
+class Solution:
+    def removeNthFromEnd(self, head, n):
+        pastNode = nextNode = head
+        for i in range(n):
+            nextNode = nextNode.next
+        if not nextNode:
+            return head.next
+        while nextNode.next:
+            nextNode = nextNode.next
+            pastNode = pastNode.next
+        pastNode.next = pastNode.next.next
+        return head
 
 ```
