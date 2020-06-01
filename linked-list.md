@@ -1,10 +1,10 @@
 # Linked list
 
-+ [Reverse linked list](#reverse-linked-list)
++ [Middle of the Linked List](#middle-of-the-linked-list)
 
-## Reverse linked list
+## Middle of the Linked List
 
-https://leetcode.com/problems/reverse-linked-list/
+https://leetcode.com/problems/middle-of-the-linked-list/
 
 ```python
 # Definition for singly-linked list.
@@ -13,20 +13,15 @@ https://leetcode.com/problems/reverse-linked-list/
 #         self.val = val
 #         self.next = next
 class Solution(object):
-    def reverseList(self, head):
+    def middleNode(self, head):
         """
         :type head: ListNode
         :rtype: ListNode
         """
-        currentNode = head
-        prevNode = None
-
-        while currentNode:
-            nextNode = currentNode.next
-            currentNode.next = prevNode
-            prevNode = currentNode
-            currentNode = nextNode
-
-        return prevNode
+        pastNode = nextNode = head
+        while nextNode and nextNode.next:
+            pastNode = pastNode.next
+            nextNode = nextNode.next.next
+        return pastNode
 
 ```
