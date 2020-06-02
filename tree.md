@@ -78,8 +78,6 @@ https://leetcode.com/problems/binary-tree-inorder-traversal/
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    inorderlist = []
-
     def inorderTraversal(self, root):
         """
         :type root: TreeNode
