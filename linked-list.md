@@ -44,7 +44,10 @@ class Solution(object):
                 tail.next = b
                 b = b.next
             tail = tail.next
-        tail.next = a or b
+        if a:
+            tail.next = a
+        else:
+            tail.next = b
         return head.next
 
 ```
