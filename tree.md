@@ -1,10 +1,10 @@
 # Binary tree
 
-+ [Same Tree](#same-tree)
++ [Maximum Depth of Binary Tree](#maximum-depth-of-binary-tree)
 
-## Same Tree
+## Maximum Depth of Binary Tree
 
-https://leetcode.com/problems/same-tree/
+https://leetcode.com/problems/maximum-depth-of-binary-tree/
 
 ```python
 # Definition for a binary tree node.
@@ -14,9 +14,12 @@ https://leetcode.com/problems/same-tree/
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def isSameTree(self, p, q):
-        if p and q:
-            return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
-        return p is q
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root: return 0
+        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
 
 ```
