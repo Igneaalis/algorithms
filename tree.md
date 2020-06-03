@@ -1,10 +1,10 @@
 # Binary tree
 
-+ [Same Tree](#same-tree)
++ [Invert Binary Tree](#invert-binary-tree)
 
-## Same Tree
+## Invert Binary Tree
 
-https://leetcode.com/problems/same-tree/
+https://leetcode.com/problems/invert-binary-tree/
 
 ```python
 # Definition for a binary tree node.
@@ -14,9 +14,9 @@ https://leetcode.com/problems/same-tree/
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def isSameTree(self, p, q):
-        if p and q:
-            return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
-        return p is q
+    def invertTree(self, root):
+        if root:
+            root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
+            return root
 
 ```
