@@ -1,10 +1,10 @@
 # Binary tree
 
-+ [Symmetric Tree](#symmetric-tree)
++ [Maximum Depth of Binary Tree](#maximum-depth-of-binary-tree)
 
-## Symmetric Tree
+## Maximum Depth of Binary Tree
 
-https://leetcode.com/problems/symmetric-tree/
+https://leetcode.com/problems/maximum-depth-of-binary-tree/
 
 ```python
 # Definition for a binary tree node.
@@ -14,20 +14,12 @@ https://leetcode.com/problems/symmetric-tree/
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def isSymmetric(self, root):
+    def maxDepth(self, root):
         """
         :type root: TreeNode
-        :rtype: bool
+        :rtype: int
         """
-        path = []
-        def euler(node):
-            if not node: path.append(None); return
-            path.append(node.val)
-            euler(node.left)
-            path.append(node.val)
-            euler(node.right)
-            path.append(node.val)
-        euler(root)
-        return path == path[::-1]
+        if not root: return 0
+        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
 
 ```
