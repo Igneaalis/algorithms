@@ -1,10 +1,10 @@
 # Binary tree
 
-+ [Invert Binary Tree](#invert-binary-tree)
++ [Path Sum](#path-sum)
 
-## Invert Binary Tree
+## Path Sum
 
-https://leetcode.com/problems/invert-binary-tree/
+https://leetcode.com/problems/path-sum/
 
 ```python
 # Definition for a binary tree node.
@@ -14,9 +14,12 @@ https://leetcode.com/problems/invert-binary-tree/
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def invertTree(self, root):
-        if root:
-            root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
-            return root
+    def hasPathSum(self, root, sum):
+        if not root:
+            return False
+        sum -= root.val
+        if not root.left and not root.right:
+            return sum == 0
+        return self.hasPathSum(root.left,sum) or self.hasPathSum(root.right,sum)
 
 ```
