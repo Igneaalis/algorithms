@@ -1,10 +1,10 @@
 # Binary tree
 
-+ [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
++ [Subtree of Another Tree](#subtree-of-another-tree)
 
-## Binary Tree Level Order Traversal
+## Subtree of Another Tree
 
-https://leetcode.com/problems/binary-tree-level-order-traversal/
+https://leetcode.com/problems/subtree-of-another-tree/
 
 ```python
 # Definition for a binary tree node.
@@ -14,18 +14,12 @@ https://leetcode.com/problems/binary-tree-level-order-traversal/
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def levelOrder(self, root):
-        res = []
-        self.dfs(root, 0, res)
-        return res
-    
-    def dfs(self, root, level, res):
-        if not root:
-            return 
-        if len(res) < level+1:
-            res.append([])
-        res[level].append(root.val)
-        self.dfs(root.left, level+1, res)
-        self.dfs(root.right, level+1, res)
+    def isSubtree(self, s, t):
+        def traverse_tree(node):
+            if not node:
+                return None
+            return "#{} {} {}".format(node.val, traverse_tree(node.left), traverse_tree(node.right))
+
+        return traverse_tree(t) in traverse_tree(s)
 
 ```
