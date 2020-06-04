@@ -1,32 +1,40 @@
 # Linked list
 
-+ [Reorder List (deque)](#reorder-list-deque)
++ [Intersection of Two Linked Lists](#intersection-of-two-linked-lists)
 
-## Reorder List (deque)
+## Intersection of Two Linked Lists
 
-https://leetcode.com/problems/reorder-list/
+https://leetcode.com/problems/intersection-of-two-linked-lists/
 
 ```python
 # Definition for singly-linked list.
 # class ListNode(object):
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution(object):
-    def reorderList(self, head):
-        prev,curr = ListNode(0),head
-        q = collections.deque()
-        while head:
-            q.append(head)
-            head = head.next
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
-        i = 1
-        while q:
-            if i & 1: curr = q.popleft()
-            else: curr = q.pop()
-            prev.next = curr
-            prev = curr
-            i+=1
-        if curr: curr.next = None
+class Solution(object):
+    def getIntersectionNode(self, _headA, _headB):
+        """
+        :type _headA, _headB: ListNode
+        :rtype: ListNode
+        """
+        headA, headB = _headA, _headB
+        if not headA or not headB:
+            return None
+        curA, curB = headA, headB
+        flagA, flagB = False, False
+        while curA is not curB:
+            if not flagA and not curA.next:
+                flagA = True
+                curA = headB
+            else:
+                curA = curA.next
+            if not flagB and not curB.next:
+                flagB = True
+                curB = headA
+            else:
+                curB = curB.next
+        return curA
 
 ```
