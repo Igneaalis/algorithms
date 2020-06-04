@@ -1,10 +1,10 @@
 # Binary tree
 
-+ [Subtree of Another Tree](#subtree-of-another-tree)
++ [Kth Smallest Element in a BST](#kth-smallest-element-in-a-bst)
 
-## Subtree of Another Tree
+## Kth Smallest Element in a BST
 
-https://leetcode.com/problems/subtree-of-another-tree/
+https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 
 ```python
 # Definition for a binary tree node.
@@ -14,12 +14,24 @@ https://leetcode.com/problems/subtree-of-another-tree/
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def isSubtree(self, s, t):
-        def traverse_tree(node):
-            if not node:
-                return None
-            return "#{} {} {}".format(node.val, traverse_tree(node.left), traverse_tree(node.right))
+    def in_order_traversal(self, root):
+        if not root: return
+        self.in_order_traversal(root.left)
+        self.list.append(root.val)
+        self.in_order_traversal(root.right)
 
-        return traverse_tree(t) in traverse_tree(s)
+    def kthSmallest(self, _root, k):
+        """
+        :type _root: TreeNode
+        :type k: int
+        :rtype: int
+        """
+        root = _root
+        if not root: return 0
+
+        self.list = []
+        self.in_order_traversal(root)
+
+        return self.list[k - 1]
 
 ```
