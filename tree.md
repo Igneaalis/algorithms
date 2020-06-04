@@ -20,13 +20,18 @@ class Solution(object):
         :rtype: bool
         """
         path = []
+
         def euler(node):
-            if not node: path.append(None); return
+            if not node:
+                path.append(None)
+                return
+            
             path.append(node.val)
             euler(node.left)
             path.append(node.val)
             euler(node.right)
             path.append(node.val)
+
         euler(root)
         return path == path[::-1]
 
