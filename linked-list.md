@@ -1,26 +1,32 @@
 # Linked list
 
-+ [Linked List Cycle](#linked-list-cycle)
++ [Reorder List (deque)](#reorder-list-deque)
 
-## Linked List Cycle
+## Reorder List (deque)
 
-https://leetcode.com/problems/linked-list-cycle/
+https://leetcode.com/problems/reorder-list/
 
 ```python
 # Definition for singly-linked list.
 # class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution(object):
-    def hasCycle(self, root):
-        tail = head = root
-        while head and head.next:
-            head = head.next.next
-            tail = tail.next
-            if tail is head:
-                return True
-        return False
+    def reorderList(self, head):
+        prev,curr = ListNode(0),head
+        q = collections.deque()
+        while head:
+            q.append(head)
+            head = head.next
+
+        i = 1
+        while q:
+            if i & 1: curr = q.popleft()
+            else: curr = q.pop()
+            prev.next = curr
+            prev = curr
+            i+=1
+        if curr: curr.next = None
 
 ```
