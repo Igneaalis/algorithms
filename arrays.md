@@ -75,6 +75,6 @@ class Solution(object):
         out = set()
         for index, value in enumerate(nums):
             self.twoSum(nums[index + 1:], -value, out)
-        return list(list(x) for x in out)
+        return [list(x) for x in out]
 
 ```
