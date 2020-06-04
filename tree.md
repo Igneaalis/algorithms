@@ -1,10 +1,10 @@
 # Binary tree
 
-+ [Kth Smallest Element in a BST](#kth-smallest-element-in-a-bst)
++ [Validate Binary Search Tree](#validate-binary-search-tree)
 
-## Kth Smallest Element in a BST
+## Validate Binary Search Tree
 
-https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+https://leetcode.com/problems/validate-binary-search-tree/
 
 ```python
 # Definition for a binary tree node.
@@ -13,25 +13,19 @@ https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution(object):
-    def in_order_traversal(self, root):
-        if not root: return
-        self.in_order_traversal(root.left)
-        self.list.append(root.val)
-        self.in_order_traversal(root.right)
 
-    def kthSmallest(self, _root, k):
+
+class Solution(object):
+    def isValidBST(self, _root, first=True):
         """
         :type _root: TreeNode
-        :type k: int
-        :rtype: int
+        :type first: bool
+        :rtype: bool
         """
         root = _root
-        if not root: return 0
-
-        self.list = []
-        self.in_order_traversal(root)
-
-        return self.list[k - 1]
+        if not root:
+            return first or []
+        result = self.isValidBST(root.left, False) + [root.val] + self.isValidBST(root.right, False)
+        return all([right > left for right, left in zip(result[1:], result)]) if first else result
 
 ```
