@@ -15,7 +15,7 @@ https://leetcode.com/problems/binary-search-tree-iterator/
 #         self.right = right
 class BSTIterator(object):
 
-    def push(self, node):
+    def traverse(self, node):
         """
         :type node: TreeNode
         """
@@ -29,7 +29,7 @@ class BSTIterator(object):
         """
         self.root = root
         self.inorderlist = []
-        self.push(root)
+        self.traverse(root)
 
     def next(self):
         """
@@ -37,7 +37,7 @@ class BSTIterator(object):
         :rtype: int
         """
         node = self.inorderlist.pop()
-        self.push(node.right)
+        self.traverse(node.right)
         return node.val
 
     def hasNext(self):
