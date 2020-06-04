@@ -14,7 +14,7 @@ https://leetcode.com/problems/reorder-list/
 #         self.next = next
 class Solution(object):
     def reorderList(self, head):
-        prev,curr = ListNode(0),head
+        prev, curr = ListNode(0), head
         q = collections.deque()
         while head:
             q.append(head)
@@ -22,11 +22,13 @@ class Solution(object):
 
         i = 1
         while q:
-            if i & 1: curr = q.popleft()
-            else: curr = q.pop()
+            if i & 1:
+                curr = q.popleft()
+            else:
+                curr = q.pop()
             prev.next = curr
             prev = curr
-            i+=1
+            i += 1
         if curr: curr.next = None
 
 ```
