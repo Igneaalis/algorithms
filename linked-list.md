@@ -1,10 +1,10 @@
 # Linked list
 
-+ [Linked List Cycle II](#linked-list-cycle-ii)
++ [Linked List Cycle](#linked-list-cycle)
 
-## Linked List Cycle II
+## Linked List Cycle
 
-https://leetcode.com/problems/linked-list-cycle-ii/
+https://leetcode.com/problems/linked-list-cycle/
 
 ```python
 # Definition for singly-linked list.
@@ -14,18 +14,13 @@ https://leetcode.com/problems/linked-list-cycle-ii/
 #         self.next = None
 
 class Solution(object):
-    def detectCycle(self, _head):
-        tail = curNode = head = _head
-        while curNode and curNode.next:
+    def hasCycle(self, root):
+        tail = head = root
+        while head and head.next:
+            head = head.next.next
             tail = tail.next
-            curNode = curNode.next.next
-            if tail is curNode:
-                break
-        else:
-            return None
-        while head is not tail:
-            tail = tail.next
-            head = head.next
-        return head
+            if tail is head:
+                return True
+        return False
 
 ```
