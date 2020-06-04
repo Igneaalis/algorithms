@@ -12,7 +12,6 @@ https://leetcode.com/problems/intersection-of-two-linked-lists/
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
-
 class Solution(object):
     def getIntersectionNode(self, _headA, _headB):
         """
@@ -20,21 +19,14 @@ class Solution(object):
         :rtype: ListNode
         """
         headA, headB = _headA, _headB
-        if not headA or not headB:
+        if not (headA and headB):
             return None
-        curA, curB = headA, headB
-        flagA, flagB = False, False
-        while curA is not curB:
-            if not flagA and not curA.next:
-                flagA = True
-                curA = headB
-            else:
-                curA = curA.next
-            if not flagB and not curB.next:
-                flagB = True
-                curB = headA
-            else:
-                curB = curB.next
-        return curA
+
+        nodeA, nodeB = headA, headB
+        while nodeA is not nodeB:
+            nodeA = headB if not nodeA else nodeA.next
+            nodeB = headA if not nodeB else nodeB.next
+
+        return nodeA
 
 ```
