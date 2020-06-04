@@ -1,10 +1,10 @@
 # Binary tree
 
-+ [Validate Binary Search Tree](#validate-binary-search-tree)
++ [Binary Search Tree Iterator](#binary-search-tree-iterator)
 
-## Validate Binary Search Tree
+## Binary Search Tree Iterator
 
-https://leetcode.com/problems/validate-binary-search-tree/
+https://leetcode.com/problems/binary-search-tree-iterator/
 
 ```python
 # Definition for a binary tree node.
@@ -13,19 +13,43 @@ https://leetcode.com/problems/validate-binary-search-tree/
 #         self.val = val
 #         self.left = left
 #         self.right = right
+class BSTIterator(object):
 
-
-class Solution(object):
-    def isValidBST(self, _root, first=True):
+    def push(self, node):
         """
-        :type _root: TreeNode
-        :type first: bool
+        :type node: TreeNode
+        """
+        while node:
+            self.inorderlist.append(node)
+            node = node.left
+
+    def __init__(self, root):
+        """
+        :type root: TreeNode
+        """
+        self.root = root
+        self.inorderlist = []
+        self.push(root)
+
+    def next(self):
+        """
+        @return the next smallest number
+        :rtype: int
+        """
+        node = self.inorderlist.pop()
+        self.push(node.right)
+        return node.val
+
+    def hasNext(self):
+        """
+        @return whether we have a next smallest number
         :rtype: bool
         """
-        root = _root
-        if not root:
-            return first or []
-        result = self.isValidBST(root.left, False) + [root.val] + self.isValidBST(root.right, False)
-        return all([right > left for right, left in zip(result[1:], result)]) if first else result
+        return len(self.inorderlist) != 0
+
+# Your BSTIterator object will be instantiated and called as such:
+# obj = BSTIterator(root)
+# param_1 = obj.next()
+# param_2 = obj.hasNext()
 
 ```
