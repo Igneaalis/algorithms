@@ -59,16 +59,16 @@ class Solution(object):
         :rtype: ListNode
         """
         head = _head
-        left, right = self.halve_list(head)
+        left, right = self.halveList(head)
         if left == right:
             return left
 
         left = self.sortList(left)
         right = self.sortList(right)
 
-        return self.merge_list(left, right)
+        return self.mergeList(left, right)
 
-    def merge_list(self, left, right):
+    def mergeList(self, left, right):
         cur = head = ListNode()
         while left and right:
             if left.val < right.val:
@@ -94,7 +94,7 @@ class Solution(object):
 
         return head.next
 
-    def halve_list(self, head):
+    def halveList(self, head):
         fast = slow = head
         prev = None
         while fast:
