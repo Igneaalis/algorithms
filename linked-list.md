@@ -2,6 +2,7 @@
 
 + [Sort List (map() version)](#sort-list-map-version)
 + [Sort List (divide and conquer version)](#sort-list-divide-and-conquer-version)
++ [Merge Function (recursive)](#merge-function-recursive)
 
 ## Sort List (map() version)
 
@@ -27,18 +28,38 @@ class Solution(object):
             prevNode, tail, head = tail, tail.next, head.next.next
         prevNode.next = None
 
-        return self.mergeTwoLists(*map(self.sortList, (start, tail)))
+        return self.mergeList(*map(self.sortList, (start, tail)))
 
-    def mergeTwoLists(self, headA, headB):
+    def mergeList(self, left, right):
         """
-        :type headA, headB: ListNode
+        :type left: ListNode
+        :type right: ListNode
         :rtype: ListNode
         """
-        if headA and headB:
-            if headA.val > headB.val:
-                headA, headB = headB, headA
-            headA.next = self.mergeTwoLists(headA.next, headB)
-        return headA or headB
+        cur = head = ListNode()
+        while left and right:
+            if left.val < right.val:
+                cur.next = left
+                left = left.next
+                cur = cur.next
+            else:
+                cur.next = right
+                right = right.next
+                cur = cur.next
+
+        while left:
+            cur.next = left
+            cur = cur.next
+            left = left.next
+
+        while right:
+            cur.next = right
+            cur = cur.next
+            right = right.next
+
+        cur.next = None
+
+        return head.next
 
 ```
 
@@ -69,6 +90,11 @@ class Solution(object):
         return self.mergeList(left, right)
 
     def mergeList(self, left, right):
+        """
+        :type left: ListNode
+        :type right: ListNode
+        :rtype: ListNode
+        """
         cur = head = ListNode()
         while left and right:
             if left.val < right.val:
@@ -95,6 +121,10 @@ class Solution(object):
         return head.next
 
     def halveList(self, head):
+        """
+        :type head: ListNode
+        :rtype: (ListNode, ListNode)
+        """
         fast = slow = head
         prev = None
         while fast:
@@ -108,5 +138,22 @@ class Solution(object):
         if prev:
             prev.next = None
         return head, slow
+
+```
+
+## Merge Function (recursive)
+
+```python
+def mergeList(self, left, right):
+    """
+    :type left: ListNode
+    :type right: ListNode
+    :rtype: ListNode
+    """
+    if left and right:
+        if left.val > right.val:
+            left, right = right, left
+        left.next = self.mergeList(left.next, right)
+    return left or right
 
 ```
